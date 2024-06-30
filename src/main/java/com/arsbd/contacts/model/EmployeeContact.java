@@ -1,15 +1,21 @@
 package com.arsbd.contacts.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name="employee_contact")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class EmployeeContact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long employee_id;
 
     @Column(name = "full_name")
     @JsonProperty("full_name")
@@ -34,25 +40,30 @@ public class EmployeeContact {
     @JsonProperty("job_position")
     private String jobPosition;
 
+    @Lob
+    @Column(name = "contact_photo")
+    public byte[] photo;
+
+    @ManyToMany (mappedBy = "employees")
+    @JsonIgnore
+    private Set<InstitutionContact> institutions = new HashSet<>();
 
     public EmployeeContact(){}
 
-    public EmployeeContact(String name, String email, String employeePosition, String phone, String address, String jobPosition){
-        super();
-        this.name = name;
-        this.email = email;
-        this.employeePosition = employeePosition;
-        this.phone = phone;
-        this.address = address;
-        this.jobPosition = jobPosition;
+    public Set<InstitutionContact> getInstitutions() {
+        return institutions;
     }
 
-    public long getId() {
-        return id;
+    public void setInstitutions(Set<InstitutionContact> institutions) {
+        this.institutions = institutions;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public long getEmployee_id() {
+        return employee_id;
+    }
+
+    public void setEmployee_id(long employee_id) {
+        this.employee_id = employee_id;
     }
 
     public String getName() {
@@ -101,6 +112,14 @@ public class EmployeeContact {
 
     public void setJobPosition(String jobPosition) {
         this.jobPosition = jobPosition;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
 }
