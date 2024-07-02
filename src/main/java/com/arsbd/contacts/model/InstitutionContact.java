@@ -24,11 +24,12 @@ public class InstitutionContact {
 
     private String institutionPhone;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "institution_employee")
     private Set<EmployeeContact> employees = new HashSet<>();
 
-    public InstitutionContact(){}
+    public InstitutionContact() {
+    }
 
     public Set<EmployeeContact> getEmployees() {
         return employees;

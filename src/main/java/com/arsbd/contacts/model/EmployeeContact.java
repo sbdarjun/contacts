@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="employee_contact")
+@Table(name = "employee_contact")
 public class EmployeeContact {
 
     @Id
@@ -28,11 +28,12 @@ public class EmployeeContact {
     private String jobPosition;
 
 
-    @ManyToMany (mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees")
     @JsonIgnore
     private Set<InstitutionContact> institutions = new HashSet<>();
 
-    public EmployeeContact(){}
+    public EmployeeContact() {
+    }
 
     public long getEmployee_id() {
         return employee_id;
