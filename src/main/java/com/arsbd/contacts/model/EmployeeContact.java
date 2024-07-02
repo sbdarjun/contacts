@@ -1,61 +1,38 @@
 package com.arsbd.contacts.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
+
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name="employee_contact")
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "employee_contact")
 public class EmployeeContact {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long employee_id;
 
-    @Column(name = "full_name")
-    @JsonProperty("full_name")
-    private String name;
+    private String employeeName;
 
-    @Column(name = "email")
-    private String email;
+    private String employeeEmail;
 
-    @Column(name = "employee_position")
-    @JsonProperty("employee_position")
     private String employeePosition;
 
-    @Column(name = "phone_number")
-    @JsonProperty("phone_number")
-    private String phone;
+    private String employeePhone;
 
-    @Column(name = "full_address")
-    @JsonProperty("full_address")
-    private String address;
+    private String employeeAddress;
 
-    @Column(name = "job_position")
-    @JsonProperty("job_position")
     private String jobPosition;
 
-    @Lob
-    @Column(name = "contact_photo")
-    public byte[] photo;
 
-    @ManyToMany (mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees")
     @JsonIgnore
     private Set<InstitutionContact> institutions = new HashSet<>();
 
-    public EmployeeContact(){}
-
-    public Set<InstitutionContact> getInstitutions() {
-        return institutions;
-    }
-
-    public void setInstitutions(Set<InstitutionContact> institutions) {
-        this.institutions = institutions;
+    public EmployeeContact() {
     }
 
     public long getEmployee_id() {
@@ -66,20 +43,20 @@ public class EmployeeContact {
         this.employee_id = employee_id;
     }
 
-    public String getName() {
-        return name;
+    public String getEmployeeName() {
+        return employeeName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getEmployeeEmail() {
+        return employeeEmail;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmployeeEmail(String employeeEmail) {
+        this.employeeEmail = employeeEmail;
     }
 
     public String getEmployeePosition() {
@@ -90,20 +67,20 @@ public class EmployeeContact {
         this.employeePosition = employeePosition;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getEmployeePhone() {
+        return employeePhone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setEmployeePhone(String employeePhone) {
+        this.employeePhone = employeePhone;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmployeeAddress() {
+        return employeeAddress;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmployeeAddress(String employeeAddress) {
+        this.employeeAddress = employeeAddress;
     }
 
     public String getJobPosition() {
@@ -114,12 +91,11 @@ public class EmployeeContact {
         this.jobPosition = jobPosition;
     }
 
-    public byte[] getPhoto() {
-        return photo;
+    public Set<InstitutionContact> getInstitutions() {
+        return institutions;
     }
 
-    public void setPhoto(byte[] photo) {
-        this.photo = photo;
+    public void setInstitutions(Set<InstitutionContact> institutions) {
+        this.institutions = institutions;
     }
-
 }
