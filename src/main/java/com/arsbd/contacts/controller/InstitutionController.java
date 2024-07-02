@@ -1,6 +1,7 @@
 package com.arsbd.contacts.controller;
 
 import com.arsbd.contacts.model.InstitutionContact;
+import com.arsbd.contacts.repository.EmployeeRepository;
 import com.arsbd.contacts.repository.InstitutionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,14 @@ public class InstitutionController {
     @Autowired
     private InstitutionRepository institutionRepository;
 
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    public InstitutionController(InstitutionRepository institutionRepository, EmployeeRepository employeeRepository){
+        this.institutionRepository = institutionRepository;
+        this.employeeRepository = employeeRepository;
+    }
+
     @GetMapping
     public List<InstitutionContact> getAllContact(){
         return  institutionRepository.findAll();
@@ -25,8 +34,8 @@ public class InstitutionController {
         return institutionRepository.getOne(id);
     }
 
-    @PostMapping
-    public InstitutionContact createContact(@RequestBody final InstitutionContact instContact){
+    @PostMapping(consumes = "application/json", produces = "application/json")
+    public InstitutionContact createContact(@RequestBody InstitutionContact instContact){
         return institutionRepository.save(instContact);
     }
 
