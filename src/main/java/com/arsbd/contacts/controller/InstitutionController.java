@@ -1,10 +1,11 @@
 package com.arsbd.contacts.controller;
 
+import com.arsbd.contacts.exception.ResourceNotFound;
 import com.arsbd.contacts.model.InstitutionContact;
-import com.arsbd.contacts.repository.EmployeeRepository;
 import com.arsbd.contacts.repository.InstitutionRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,26 +17,19 @@ public class InstitutionController {
     @Autowired
     private InstitutionRepository institutionRepository;
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    public InstitutionController(InstitutionRepository institutionRepository, EmployeeRepository employeeRepository){
-        this.institutionRepository = institutionRepository;
-        this.employeeRepository = employeeRepository;
-    }
-
     @GetMapping
     public List<InstitutionContact> getAllContact(){
         return  institutionRepository.findAll();
     }
 
-    @GetMapping("{id}")
-    public InstitutionContact get(@PathVariable Long id){
-        return institutionRepository.getOne(id);
+    @GetMapping("/{institution_id}")
+    public ResponseEntity<InstitutionContact> getInstitutionById(@PathVariable Long institution_id ){
+        InstitutionContact instContact = institutionRepository.findById(institution_id).orElseThrow(() -> new ResourceNotFound("Institution not exist with id :" + institution_id));
+        return  ResponseEntity.ok(instContact);
     }
 
-    @PostMapping(consumes = "application/json", produces = "application/json")
-    public InstitutionContact createContact(@RequestBody InstitutionContact instContact){
+    @PostMapping
+    public InstitutionContact createContact(@RequestBody final InstitutionContact instContact){
         return institutionRepository.save(instContact);
     }
 
