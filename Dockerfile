@@ -26,9 +26,19 @@ COPY wait-for-it.sh /wait-for-it.sh
 # Make the script executable
 RUN chmod +x /wait-for-it.sh
 
-# Expose the port the app runs on
-EXPOSE 8080
+#Server: sql3.freemysqlhosting.net
+#Name: sql3718964
+#Username: sql3718964
+#Password: Xk9zIwxMMF
+#Port number: 3306
 
+ENV SPRING_DATASOURCE_URL=jdbc:mysql://sql3.freemysqlhosting.net/sql3718964
+ENV SPRING_DATASOURCE_USERNAME=sql3718964
+ENV SPRING_DATASOURCE_PASSWORD=Xk9zIwxMMF
+
+# Expose the port the app runs on
+EXPOSE 80
 
 # Run the application
-ENTRYPOINT ["/wait-for-it.sh", "db:3306", "--", "java", "-jar", "/app.jar"]
+#ENTRYPOINT ["/wait-for-it.sh", "db:3306", "--", "java", "-jar", "/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app.jar"]
