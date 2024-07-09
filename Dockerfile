@@ -18,7 +18,7 @@ FROM openjdk:17-slim
 WORKDIR /app
 
 # Copy the packaged jar file from the build stage
-COPY --from=build /app/target/*.jar app/app.jar
+COPY --from=build /app/target/*.jar /app.jar
 
 # Copy the wait-for-it.sh script
 COPY wait-for-it.sh /wait-for-it.sh
