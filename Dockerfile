@@ -37,7 +37,7 @@ ENV SPRING_DATASOURCE_USERNAME=sql3718964
 ENV SPRING_DATASOURCE_PASSWORD=Xk9zIwxMMF
 
 # Expose the port the app runs on
-EXPOSE 80
+EXPOSE 8080
 
 # Run the application
 #ENTRYPOINT ["/wait-for-it.sh", "db:3306", "--", "java", "-jar", "/app.jar"]
