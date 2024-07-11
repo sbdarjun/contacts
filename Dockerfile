@@ -21,10 +21,10 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar /app.jar
 
 # Copy the wait-for-it.sh script
-COPY wait-for-it.sh /wait-for-it.sh
+#COPY wait-for-it.sh /wait-for-it.sh
 
 # Make the script executable
-RUN chmod +x /wait-for-it.sh
+#RUN chmod +x /wait-for-it.sh
 
 #Server: sql3.freemysqlhosting.net
 #Name: sql3718964
